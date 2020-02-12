@@ -113,28 +113,31 @@ docker push kbowerma/atoolbag
 ## Releases
 
 ### Version 3.5  1/25/2020
+
   * Supports R and multiple versions of python via in Juypter notebooks
 
-### Version 3.6 
-  * [x] static landing page generated from mkdocs, ``` open localhost:80```
-  * [x] Edit static site with live reload
-  * [x] startup.sh script added to launch multiple services on one container
-  * [*] pulls in Repo for landing page from https://github.com/kbowerma/adocs.git
-  * [ ] pg Admin support added 
-  * startup: ```docker run -it -p 8888:8888 -p 80:8000 --rm --name mytoolbag36 kbowerma/atoolbag:3.6```
+### Version 3.6
+
+* [x] static landing page generated from mkdocs, ``` open localhost:80```
+* [x] Edit static site with live reload
+* [x] startup.sh script added to launch multiple services on one container
+* [x] pulls in Repo for landing page from https://github.com/kbowerma/adocs.git
+* [x] pg Admin support added 
+* startup: ```docker run -it -p 8888:8888 -p 80:8000 --rm --name mytoolbag36 kbowerma/atoolbag:3.6```
 
 ### Version 3.7
- 
- [*] removed dvc, it caused conflicts with conda
- [*] added compose file includes containers for: postgres, adminer, pgweb
- [*] removed postgres from toolbag over seperate container.
- [*] renamed startype.sh to docker-entrypoint.sh
- [*] update content from github kbowerma/adocs
+
+* [x] removed dvc, it caused conflicts with conda
+* [x] added compose file includes containers for: postgres, adminer, pgweb
+* [x] removed postgres from toolbag over seperate container.
+* [x] renamed startype.sh to docker-entrypoint.sh
+* [x] update content from github kbowerma/adocs
 
  ## Version 4.0
 
- [*] rebased repo
- [*] services running on consecutive ports
+* [x] rebased repo
+* [x] services running on consecutive ports
+* [x] hasura support port 84
 
 
 
