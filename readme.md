@@ -131,6 +131,11 @@ docker push kbowerma/atoolbag
  [*] renamed startype.sh to docker-entrypoint.sh
  [*] update content from github kbowerma/adocs
 
+ ## Version 4.0
+
+ [*] rebased repo
+ [*] services running on consecutive ports
+
 
 
 
