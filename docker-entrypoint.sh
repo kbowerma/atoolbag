@@ -8,12 +8,16 @@ echo '\n\n1. Running starup script\n'
 echo '\n\n2. updating web docs\n'
 
 cd /opt/notebooks/www; ls; git pull
-sed -i s/Atrium\ Toolbag/Atrium\ Toolbag\ $ATOOLBAG_VERSION/g /opt/notebooks/www/docs/index.md
+#sed -i s/Atrium\ Toolbag/Atrium\ Toolbag\ $ATOOLBAG_VERSION/g /opt/notebooks/www/docs/index.md
 
 
 echo '\n \n3. Serving web docs with mkdocs\n'
 cd /opt/notebooks/www;
-mkdocs serve -a 0.0.0.0:8000  &
+#mkdocs serve -a 0.0.0.0:8000  &
+npm install
+npm install -g nodemon
+mkdocs build
+
 #/usr/local/bin/pgadmin-entrypoint.sh &
 #pgadmin4 &
 

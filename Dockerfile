@@ -91,9 +91,13 @@ RUN dpkg -l > /opt/notebooks/data/packages.txt
 # Leave in webroot
 WORKDIR /opt/notebooks/www
 
-RUN echo -e "\n\nnow run:\n  docker run -it -p:80:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
+
 COPY docker-entrypoint.sh  /opt
 
 ENTRYPOINT ["sh"]
 CMD ["/opt/docker-entrypoint.sh"]
+
+#RUN echo -e "\n\nnow run:\n  docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
+#Oauth branch
+RUN echo -e "\n\nnow run:\n\n  docker run -it -p:8000:8000 -p:8888:8888 --name myouathtoolbag atoolbag:oauth1 \n\n"
 
