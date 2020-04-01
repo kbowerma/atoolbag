@@ -84,7 +84,7 @@ RUN conda create -n py38 python=3.8 ipykernel
 # RUN conda info
 
 # Run some operational stuff
-ENV ATOOLBAG_VERSION 4.0
+ENV ATOOLBAG_VERSION 5.0
 RUN dpkg -l > /opt/notebooks/data/packages.txt
 
 
@@ -94,10 +94,28 @@ WORKDIR /opt/notebooks/www
 
 COPY docker-entrypoint.sh  /opt
 
+COPY .env /opt/notebooks/www
+
+#upgrade node 
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n 11.12.0
+RUN n 12.16.1
+RUN node -v
+RUN npm install -g nodemon
+
+#now install the Express/passport kit from the package.json in adocs 
+RUN ls -l
+RUN git pull
+
+RUN npm install 
+
+
+
 ENTRYPOINT ["sh"]
 CMD ["/opt/docker-entrypoint.sh"]
 
-#RUN echo -e "\n\nnow run:\n  docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
+RUN echo -e "\n\nnow run:\n  docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
 #Oauth branch
-RUN echo -e "\n\nnow run:\n\n  docker run -it -p:8000:8000 -p:8888:8888 --name myouathtoolbag atoolbag:oauth1 \n\n"
+#RUN echo -e "\n\nnow run:\n\n  docker run -it -p:8000:8000 -p:8888:8888 --name mykoatoolbag atoolbag:koa \n\n"
 
