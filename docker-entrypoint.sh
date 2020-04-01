@@ -19,11 +19,16 @@ cd /opt/notebooks/www;
 mkdocs build
 
 # Start the server 
-nodemon index.js &
+#nodemon index.js &
 
 #/usr/local/bin/pgadmin-entrypoint.sh &
 #pgadmin4 &
+echo '\n\n4. starting express server'
 
-echo '\n \n4. Running Jupyter\n'
+nodemon index.js &
+
+
+echo '\n \n5. Running Jupyter\n'
+
 
 jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 

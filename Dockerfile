@@ -84,7 +84,7 @@ RUN conda create -n py38 python=3.8 ipykernel
 # RUN conda info
 
 # Run some operational stuff
-ENV ATOOLBAG_VERSION 5.0
+ENV ATOOLBAG_VERSION 5.1
 RUN dpkg -l > /opt/notebooks/data/packages.txt
 
 
@@ -92,7 +92,7 @@ RUN dpkg -l > /opt/notebooks/data/packages.txt
 WORKDIR /opt/notebooks/www
 
 
-COPY docker-entrypoint.sh  /opt
+
 
 COPY .env /opt/notebooks/www
 
@@ -105,12 +105,16 @@ RUN node -v
 RUN npm install -g nodemon
 
 #now install the Express/passport kit from the package.json in adocs 
-RUN ls -l
-RUN git pull
 
+COPY www/* /opt/notebooks/www/
+
+#RUN "echo install express/passport server"
 RUN npm install 
 
+# copy jupyter notebook config 
+COPY jupyter_notebook_config.py /opt/config/jupyter_notebook_config.py 
 
+COPY docker-entrypoint.sh  /opt
 
 ENTRYPOINT ["sh"]
 CMD ["/opt/docker-entrypoint.sh"]

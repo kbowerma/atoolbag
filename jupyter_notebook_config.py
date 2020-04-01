@@ -45,7 +45,7 @@
 #  Use '*' to allow any origin to access your server.
 #  
 #  Takes precedence over allow_origin_pat.
-#c.NotebookApp.allow_origin = ''
+c.NotebookApp.allow_origin = '*'
 
 ## Use a regular expression for the Access-Control-Allow-Origin header
 #  
@@ -76,7 +76,7 @@ c.NotebookApp.allow_root = True
 ## The base URL for the notebook server.
 #  
 #  Leading and trailing slashes can be omitted, and will automatically be added.
-#c.NotebookApp.base_url = '/'
+c.NotebookApp.base_url = '/notebook'
 
 ## Specify what command to use to invoke a web browser when opening the notebook.
 #  If not specified, the default browser will be determined by the `webbrowser`
@@ -277,7 +277,7 @@ c.NotebookApp.quit_button = True
 #c.NotebookApp.ssl_options = {}
 
 ## Supply overrides for terminado. Currently only supports "shell_command".
-#c.NotebookApp.terminado_settings = {}
+c.NotebookApp.terminado_settings = { 'shell_command': ['/bin/bash'] }
 
 ## Set to False to disable terminals.
 #  
