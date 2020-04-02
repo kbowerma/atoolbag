@@ -84,7 +84,7 @@ RUN conda create -n py38 python=3.8 ipykernel
 # RUN conda info
 
 # Run some operational stuff
-ENV ATOOLBAG_VERSION 5.1
+ENV ATOOLBAG_VERSION 5.2
 RUN dpkg -l > /opt/notebooks/data/packages.txt
 
 

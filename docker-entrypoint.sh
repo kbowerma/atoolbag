@@ -1,6 +1,6 @@
 #This is the startup script that runs the serves
 
-echo '\n\n1. Running starup script\n'
+echo '\n\n1. Running startup script\n'
 
 # use for production server (no live reload)
 #static-server -p 8000 /opt/notebooks/www/site &

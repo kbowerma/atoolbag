@@ -2,10 +2,19 @@
 # it assumes that you have generated ssh keys and have uploaded your public key
 # to the bitbucket repo
 
+
+
 echo "\n\n Building the atoolbag:5.1 image"
 
+echo '\n checking for existance of .env'
+
+if [ -f ".env" ]; then echo '.env file exists\n'; cat .env; echo '\n\n'; sleep 2; fi
+if [ ! -f ".env" ]; then echo '.env does not exist touching now ';  touch .env ; fi
+
+sleep 2
+
 # Un comment the line below to uplaod your ssh keys to the container
-docker build  -t atoolbag:5.1  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
+docker build  -t atoolbag:5.2  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
 
 # Un Comment the line below and comment the line above if you dont want to push your ssh keys to the repo and you wont be able to automaticly push and pull
 # docker build  -t atoolbag:5.1  . 
