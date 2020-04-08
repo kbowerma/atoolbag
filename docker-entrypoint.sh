@@ -31,4 +31,5 @@ nodemon index.js &
 echo '\n \n5. Running Jupyter\n'
 
 
-jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 
+# jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 
+jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 

@@ -20,7 +20,7 @@ morgan(':method :url :status :res[content-length] - :response-time ms')
 // App Variables
 
 const app = express();
-const port =  "8000";
+const PORT = process.env.PORT || 8000; 
 
 /*
 const { routes } =  {
@@ -155,13 +155,13 @@ app.get("/user", secured, (req, res, next) => {
 
 // JuypterProxy middleware options
 const options = {
-  target: 'http://localhost:8000', // target host
+  target: 'http://localhost:'+PORT, // target host
   changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   router: {
     // when request.headers.host == 'dev.localhost:3000',
     // override target 'http://www.example.org' to 'http://localhost:8000'
-    'localhost:8000': 'http://localhost:8888',
+    'localhost:'+PORT: 'http://localhost:8888',
   },
 };
 
@@ -178,6 +178,6 @@ app.use('/', secured,  express.static(path.join(__dirname, 'site')))
 
 // Server Activation
 
-app.listen(port, () => {
-  console.log(`Listening to requests on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening to requests on http://localhost:${PORT}`);
 });
