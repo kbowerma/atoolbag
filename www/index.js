@@ -155,6 +155,7 @@ app.get("/user", secured, (req, res, next) => {
 });
 
 // JuypterProxy middleware options
+const routerstring = `${THIS_HOST}:${PORT}: ${THIS_HOST}:8888`
 const options = {
   target: `${THIS_HOST}:${PORT}`, // target host localhost:8000 or Heroku:$PORT
   changeOrigin: true, // needed for virtual hosted sites
@@ -164,7 +165,7 @@ const options = {
     // override target 'http://www.example.org' to 'http://localhost:8000'
     //'localhost:80': 'http://localhost:8888', // works on local
     //`${THIS_HOST}:${PORT}`: `${THIS_HOST}:8888` // <- errored with SyntaxError: Unexpected template string at first three chars
-    `${THIS_HOST}:${PORT}: ${THIS_HOST}:8888`,
+    routerstring,
     //'atoolbag52.herokuapp.com:80':'atoolbag52.herokuapp.com:8888'
   },
 };
