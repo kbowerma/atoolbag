@@ -25,7 +25,8 @@ mkdocs build
 #pgadmin4 &
 echo '\n\n4. starting express server'
 
-nodemon index.js &
+#nodemon index.js &
+node index.js &
 
 
 echo '\n \n5. Running Jupyter\n'
