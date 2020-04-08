@@ -155,13 +155,13 @@ app.get("/user", secured, (req, res, next) => {
 
 // JuypterProxy middleware options
 const options = {
-  target: 'http://localhost:'+PORT, // target host
+  target: 'http://localhost:'PORT, // target host
   changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   router: {
     // when request.headers.host == 'dev.localhost:3000',
     // override target 'http://www.example.org' to 'http://localhost:8000'
-    'localhost:'+PORT: 'http://localhost:8888',
+    'localhost:'PORT: 'http://localhost:8888',
   },
 };
 
