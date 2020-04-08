@@ -162,7 +162,7 @@ const options = {
     // when request.headers.host == 'dev.localhost:3000',
     // override target 'http://www.example.org' to 'http://localhost:8000'
     'localhost:80': 'http://localhost:8888',
-    'atoolbag52.herokuapp.com:80','https://atoolbag52.herokuapp.com:8888'
+    'atoolbag52.herokuapp.com:80':'https://atoolbag52.herokuapp.com:8888'
   },
 };
 
