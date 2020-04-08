@@ -21,6 +21,7 @@ morgan(':method :url :status :res[content-length] - :response-time ms')
 
 const app = express();
 const PORT = process.env.PORT || 8000; 
+const THIS_HOST = process.env.THIS_HOST || localhost;
 
 /*
 const { routes } =  {
@@ -155,14 +156,15 @@ app.get("/user", secured, (req, res, next) => {
 
 // JuypterProxy middleware options
 const options = {
-  target: 'http://localhost:80', // target host
+  target: `${THIS_HOST}:${PORT}`, // target host localhost:8000 or Heroku:$PORT
   changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   router: {
     // when request.headers.host == 'dev.localhost:3000',
     // override target 'http://www.example.org' to 'http://localhost:8000'
-    'localhost:80': 'http://localhost:8888',
-    'atoolbag52.herokuapp.com:80':'https://atoolbag52.herokuapp.com:8888'
+    //'localhost:80': 'http://localhost:8888', // works on local
+    //`${THIS_HOST}:${PORT}`: `${THIS_HOST}:8888` 
+    'atoolbag52.herokuapp.com:80':'atoolbag52.herokuapp.com:8888'
   },
 };
 
@@ -180,5 +182,5 @@ app.use('/', secured,  express.static(path.join(__dirname, 'site')))
 // Server Activation
 
 app.listen(PORT, () => {
-  console.log(`Listening to requests on http://localhost:${PORT}`);
+  console.log(`Listening to requests on ${THIS_HOST}:${PORT}`);
 });
