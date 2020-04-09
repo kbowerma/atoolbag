@@ -154,9 +154,9 @@ const options = {
 // create JuypterProxy
 const jupyterPoxy = createProxyMiddleware(options);
 
-app.use('/site', secured,  express.static(path.join(__dirname, 'site')))   //KTB  3/31/20
+app.use('/site', secured,  express.static(path.join(__dirname, '../www/site')))   //KTB  3/31/20
 app.use('/notebook', secured, jupyterPoxy);
-app.use('/', secured,  express.static(path.join(__dirname, 'site')))
+app.use('/', secured,  express.static(path.join(__dirname, '../www/site')))
 //app.use('/', secured,  express.static(path.join(__dirname, 'site')))   //KTB  3/31/20
 
 //app.use('/api', createProxyMiddleware({ target: 'http://www.example.org', changeOrigin: true }));

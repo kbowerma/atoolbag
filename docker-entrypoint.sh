@@ -25,6 +25,7 @@ mkdocs build
 #pgadmin4 &
 echo '\n\n4. starting express server'
 
+cd /opt/notebooks/server
 nodemon index.js &
 
 

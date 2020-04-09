@@ -84,17 +84,12 @@ RUN conda create -n py38 python=3.8 ipykernel
 # RUN conda info
 
 # Run some operational stuff
-ENV ATOOLBAG_VERSION 5.2
+# ENV ATOOLBAG_VERSION 5.3  <- moved to .env file
 RUN dpkg -l > /opt/notebooks/data/packages.txt
 
 
 # Leave in webroot
 WORKDIR /opt/notebooks/www
-
-
-
-
-COPY .env /opt/notebooks/www
 
 #upgrade node 
 RUN npm cache clean -f
@@ -104,12 +99,20 @@ RUN n 12.16.1
 RUN node -v
 RUN npm install -g nodemon
 
+# react componenet fix
+WORKDIR /opt/conda/lib/python3.7/site-packages/notebook/static/components/react
+RUN wget  https://unpkg.com/react-dom@16/umd/react-dom.production.min.js
+
 #now install the Express/passport kit from the package.json in adocs 
-
-COPY www/* /opt/notebooks/www/
-
+RUN mkdir /opt/notebooks/server
+COPY server/* /opt/notebooks/server/
+COPY express.env /opt/notebooks/server/.env
+WORKDIR /opt/notebooks/server
 #RUN "echo install express/passport server"
 RUN npm install 
+
+
+
 
 # copy jupyter notebook config 
 COPY jupyter_notebook_config.py /opt/config/jupyter_notebook_config.py 

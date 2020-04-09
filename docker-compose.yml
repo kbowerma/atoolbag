@@ -1,11 +1,13 @@
 # Use postgres/example user/password credentials
 version: '3.6'
 
-web:
-  atoolbag:
+services:
+
+  web:
     container_name: mytoolbag5.3
     image: atoolbag:5.3
-    restart: always
+    env_file:
+      - .env
     ports:
       - 8000:8000
 

@@ -2,3 +2,4 @@ local*
 privatenotes.md
 node_modules
 .env
+express.env
