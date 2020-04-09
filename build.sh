@@ -14,7 +14,7 @@ if [ ! -f ".env" ]; then echo '.env does not exist touching now ';  touch .env ;
 sleep 2
 
 # Un comment the line below to uplaod your ssh keys to the container
-docker build  -t atoolbag:5.2  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
+docker build  -t atoolbag:6.0  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
 
 # Un Comment the line below and comment the line above if you dont want to push your ssh keys to the repo and you wont be able to automaticly push and pull
 # docker build  -t atoolbag:5.1  . 
@@ -25,4 +25,4 @@ echo "\n\n REMINDER: the container will do a git pull every time it starts so be
 
 echo "\n\n If you want PG and other serivice to run in addtion to the Atrium Tool bag run: docker-compose up \n\n"
 
-echo "\n\n now run:\n\n docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag5.1 atoolbag:5.1 \n"
+echo "\n\n now run:\n\n docker run -it --env-file .env  -p:8000:8000 -p:8888:8888 --name mytoolbag6 atoolbag:6.0 \n"

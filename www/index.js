@@ -21,7 +21,7 @@ morgan(':method :url :status :res[content-length] - :response-time ms')
 
 const app = express();
 const PORT = process.env.PORT || 8000; 
-const THIS_HOST = process.env.THIS_HOST || localhost;
+const THIS_HOST = process.env.THIS_HOST || 'localhost';
 
 /*
 const { routes } =  {
