@@ -22,20 +22,6 @@ morgan(':method :url :status :res[content-length] - :response-time ms')
 const app = express();
 const port =  "8000";
 
-/*
-const { routes } =  {
-  "routes": [
-    {
-      "route": "/site",
-      "address": "http://localhost:8000"
-    },
-    {
-      "route": "/notebooks",
-      "address": "http://localhost:8888"
-    }
-  ]
-}
-*/
 
 // Session Configuration
 
