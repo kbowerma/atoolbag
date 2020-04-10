@@ -8,7 +8,7 @@
 
 
 
-echo "\n\n Building the atoolbag:5.3 image"
+echo "\n\n Building the atoolbag:5.4 image"
 
 echo '\n checking for existance of express.env'
 
@@ -18,7 +18,7 @@ if [ ! -f "express.env" ]; then echo 'express.envdoes not exist touching now '; 
 
 
 # Un comment the line below to uplaod your ssh keys to the container
-docker build  -t atoolbag:5.3  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
+docker build  -t atoolbag:5.4  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
 
 # Un Comment the line below and comment the line above if you dont want to push your ssh keys to the repo and you wont be able to automaticly push and pull
 # docker build  -t atoolbag:5.1  . 
