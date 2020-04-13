@@ -7,18 +7,21 @@
 #   use .env for all ports
 
 
+#read values from env var
 
-echo "\n\n Building the atoolbag:5.4 image"
+source .env
 
-echo '\n checking for existance of express.env'
+echo "\n\n Building the ${ATOOLBAG_VERSION} image"
 
-if [ -f "express.env" ]; then echo 'express.env file exists\n'; cat express.env; echo '\n\n'; sleep 2; fi
-if [ ! -f "express.env" ]; then echo 'express.envdoes not exist touching now ';  cp express-sample.env express.env ; fi
+#echo '\n checking for existance of express.env'
+
+#if [ -f "express.env" ]; then echo 'express.env file exists\n'; cat express.env; echo '\n\n'; sleep 2; fi
+#if [ ! -f "express.env" ]; then echo 'express.envdoes not exist touching now ';  cp express-sample.env express.env ; fi
 
 
 
 # Un comment the line below to uplaod your ssh keys to the container
-docker build  -t atoolbag:5.4  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
+docker build  -t "atoolbag:${ATOOLBAG_VERSION}"  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
 
 # Un Comment the line below and comment the line above if you dont want to push your ssh keys to the repo and you wont be able to automaticly push and pull
 # docker build  -t atoolbag:5.1  . 
@@ -29,4 +32,4 @@ echo "\n\n REMINDER: the container will do a git pull every time it starts so be
 
 echo "\n\n If you want PG and other serivice to run in addtion to the Atrium Tool bag run: docker-compose up \n\n"
 
-echo "\n\n now run:\n\n docker-compose up \n\n or \n docker run -it -p:8000:8000 --name mytoolbag5.4 atoolbag:5.4 \n"
+echo "\n\n now run:\n\n docker-compose up \n\n or \n docker run -it -p:8000:8000 --name mytoolbag${ATOOLBAG_VERSION} atoolbag:${ATOOLBAG_VERSION} \n"

@@ -5,7 +5,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 ENV PROJ_LIB /opt/conda/share/proj
 # to run this localy you will need to set the env
-ENV PORT 8888
+#ENV PORT 8888
 
  
 
@@ -105,11 +105,17 @@ RUN wget  https://unpkg.com/react-dom@16/umd/react-dom.production.min.js
 
 #now install the Express/passport kit from the package.json in adocs 
 RUN mkdir /opt/notebooks/server
-COPY server/* /opt/notebooks/server/
-COPY express.env /opt/notebooks/server/.env
+
+
+#COPY server/public/* /opt/notebooks/server/public/
+#COPY server/views/* /opt/notebooks/server/views/
+RUN ls -l /opt/notebooks/server/
+COPY server /opt/notebooks/server
+RUN ls -l /opt/notebooks/server/
+#COPY express.env /opt/notebooks/server/.env  # <-- moved to global env file
 WORKDIR /opt/notebooks/server
 #RUN "echo install express/passport server"
-RUN npm install 
+#RUN npm install 
 
 
 

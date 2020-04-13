@@ -1,6 +1,8 @@
 #This is the startup script that runs the serves
 
-echo '\n\n1. Running startup script\n'
+echo '\n\n1. Running startup script for '
+echo $ATOOLBAG_VERSION
+echo "\n\n"
 
 # use for production server (no live reload)
 #static-server -p 8000 /opt/notebooks/www/site &
@@ -26,10 +28,10 @@ mkdocs build
 echo '\n\n4. starting express server'
 
 cd /opt/notebooks/server
-nodemon index.js &
+node index.js &
 
 
 echo '\n \n5. Running Jupyter\n'
 
 
-jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 
+jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$JUPYTER_PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root 
