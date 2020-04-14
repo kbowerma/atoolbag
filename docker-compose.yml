@@ -4,8 +4,8 @@ version: '3.6'
 services:
 
   web:
-    container_name: mytoolbag5.4f
-    image: atoolbag:5.4f
+    container_name: mytoolbag5.5
+    image: atoolbag:5.5
     env_file:
       - .env
     ports:
