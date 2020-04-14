@@ -115,7 +115,7 @@
   });
 
   // JuypterProxy middleware options
-  const tragetValue = `http://${process.env.THIS_HOST}:${process.env.STATIC_PORT}` // 'http://localhost:8000'
+  const tragetValue = `http://${process.env.THIS_HOST}:${port}` // 'http://localhost:8000'  4/14 changed strom STATIC_PORT to port for heroku 
   const customRouter = function (req) {
     const routervalue = `http://${process.env.THIS_HOST}:${process.env.JUPYTER_PORT}` // 'http://localhost:8888'
     return routervalue;
