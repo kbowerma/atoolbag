@@ -18,7 +18,7 @@
   morgan(':method :url :status :res[content-length] - :response-time ms')
   const app = express();
   //const port =  "8000";
-  const port = process.env.STATIC_PORT;
+  const port = process.env.PORT || process.env.STATIC_PORT;
 
 
 // Session Configuration
@@ -115,15 +115,20 @@
   });
 
   // JuypterProxy middleware options
+  const tragetValue = `http://${process.env.THIS_HOST}:${process.env.STATIC_PORT}` // 'http://localhost:8000'
+  const customRouter = function (req) {
+    const routervalue = `http://${process.env.THIS_HOST}:${process.env.JUPYTER_PORT}` // 'http://localhost:8888'
+    return routervalue;
+  }
   const options = {
-    target: 'http://localhost:8000', // target host
+    target: tragetValue, // target host
     changeOrigin: true, // needed for virtual hosted sites
     ws: true, // proxy websockets
-    router: {
+    router: customRouter,
+    //router: {
       // when request.headers.host == 'dev.localhost:3000',
       // override target 'http://www.example.org' to 'http://localhost:8000'
-      'localhost:8000': 'http://localhost:8888',
-    },
+    //},
   };
 
   // create JuypterProxy

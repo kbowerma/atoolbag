@@ -14,17 +14,16 @@ cd /opt/notebooks/www; ls; git pull
 
 
 echo '\n \n3. Serving web docs with mkdocs\n'
+cd /opt/notebooks/www/docs
+sed -i "/Welcome/c\# Welcome to Atrium Toolbag $ATOOLBAG_VERSION" index.md
 cd /opt/notebooks/www;
 #mkdocs serve -a 0.0.0.0:8000  &
 #npm install
-#npm install -g nodemon
+
 mkdocs build
 
 # Start the server 
-#nodemon index.js &
 
-#/usr/local/bin/pgadmin-entrypoint.sh &
-#pgadmin4 &
 echo '\n\n4. starting express server'
 
 cd /opt/notebooks/server
