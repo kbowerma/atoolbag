@@ -5,11 +5,12 @@ services:
 
   web:
     container_name: mytoolbag5.5
-    image: atoolbag:5.5
+    image: atoolbag:5.5 
     env_file:
       - .env
     ports:
       - 8000:8000
+      - 8888:8888
 
 
 
