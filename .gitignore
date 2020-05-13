@@ -3,3 +3,4 @@ privatenotes.md
 node_modules
 .env
 express.env
+.DS_Store

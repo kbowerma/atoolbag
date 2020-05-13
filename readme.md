@@ -139,6 +139,20 @@ docker push kbowerma/atoolbag
 * [x] services running on consecutive ports
 * [x] hasura support port 84
 
+## Version 5.2
+
+ * Express middleware to support OAuth
+
+
+## Version 5.4
+
+ * use env for all ports
+ * removes server logic
+
+## Version 5.5
+
+ * leverage docker compose but needs build.sh script for ssh args
+
 
 
 
