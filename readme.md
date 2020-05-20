@@ -79,6 +79,10 @@ and docker-entrypoint.sh script does a git pull ```cd /opt/notebooks/www; ls; gi
 ```docker exec -it mytoolbag /bin/bash``` will give you root access to the running container. 
 or if you just need a new container you can run ```docker run -it atoolbag  /bin/bash```
 
+### Auth for static site
+
+To enable OAuth2 on the static site create a env var called ```USEAUTH``` and set the value to true.  
+
 ## Deploy to Heroku
 
 ### [Deploy to Heroku (Container registry and runtime method - Docker dployes)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
