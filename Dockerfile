@@ -114,8 +114,8 @@ COPY server /opt/notebooks/server
 RUN ls -l /opt/notebooks/server/
 #COPY express.env /opt/notebooks/server/.env  # <-- moved to global env file
 WORKDIR /opt/notebooks/server
-#RUN "echo install express/passport server"
-#RUN npm install 
+RUN echo -e  "install express/passport server"
+RUN npm install 
 
 
 
@@ -128,7 +128,6 @@ COPY docker-entrypoint.sh  /opt
 ENTRYPOINT ["sh"]
 CMD ["/opt/docker-entrypoint.sh"]
 
-RUN echo -e "\n\nnow run:\n  docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
-#Oauth branch
-#RUN echo -e "\n\nnow run:\n\n  docker run -it -p:8000:8000 -p:8888:8888 --name mykoatoolbag atoolbag:koa \n\n"
+# RUN echo -e "\n\nnow run:\n  docker run -it -p:8000:8000 -p:8888:8888 --name mytoolbag"$ATOOLBAG_VERSION" atoolbag:"$ATOOLBAG_VERSION"\n\n"
+RUN echo -e "\n\n run: \e[1m \e[34m docker-compose up \e[0m to start the container \n\n"
 

@@ -19,6 +19,7 @@
   const app = express();
   //const port =  "8000";
   const port = process.env.PORT || process.env.STATIC_PORT;
+  var useauth = false || process.env.USEAUTH;
 
 
 // Session Configuration
@@ -132,15 +133,22 @@
   };
 
   // create JuypterProxy
-  const jupyterPoxy = createProxyMiddleware(options);
+  const jupyterProxy = createProxyMiddleware(options);
 
+console.log('useauth = ' + useauth );
+if ( useauth == 'true' ) {
+  console.log('useauth True = ' + useauth );
   app.use('/site', secured,  express.static(path.join(__dirname, '../www/site')))   //KTB  3/31/20
-  app.use('/notebook', secured, jupyterPoxy);
+  app.use('/notebook', secured, jupyterProxy);
   app.use('/', secured,  express.static(path.join(__dirname, '../www/site')))
   //app.use('/', secured,  express.static(path.join(__dirname, 'site')))   //KTB  3/31/20
-
   //app.use('/api', createProxyMiddleware({ target: 'http://www.example.org', changeOrigin: true }));
-
+} else {
+  console.log('useauth False = ' + useauth );
+  app.use('/site',   express.static(path.join(__dirname, '../www/site')))   //KTB  3/31/20
+  app.use('/notebook', jupyterProxy);
+  app.use('/',  express.static(path.join(__dirname, '../www/site')))
+}
 
 // Server Activation
  

@@ -28,8 +28,7 @@ docker build  -t "atoolbag:${ATOOLBAG_VERSION}"  --build-arg ssh_prv_key="$(cat 
 
 
 
-echo "\n\n REMINDER: the container will do a git pull every time it starts so be sure you are aware of this, comment out the docker-entrypoint.sh file if you want to supress this feature"
-
-echo "\n\n If you want PG and other serivice to run in addtion to the Atrium Tool bag run: docker-compose up \n\n"
-
-echo "\n\n now run:\n\n docker-compose up \n\n or \n docker run -it -p:8000:8000 --name mytoolbag${ATOOLBAG_VERSION} atoolbag:${ATOOLBAG_VERSION} \n"
+printf "\n\n \e[1mREMINDER: \e[0m  the container will do a git pull every time it starts so be sure you are aware of this. \n "
+printf "comment out the \e[36mdocker-entrypoint.sh\e[0m  file if you want to supress this feature"
+printf "\n\n run: \e[1m \e[34m docker-compose up \e[0m to start the container \n\n or "
+printf " docker run -it -p:8000:8000 --name mytoolbag${ATOOLBAG_VERSION} atoolbag:${ATOOLBAG_VERSION} \n\n"
