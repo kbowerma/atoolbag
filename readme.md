@@ -152,6 +152,25 @@ docker push kbowerma/atoolbag
 ## Version 5.5
 
  * leverage docker compose but needs build.sh script for ssh args
+ * uses middleware proxy _http-proxy-middleware_ which mapps jupyter (8888)  though a route ```localhost:8000/notebook```
+
+ ## Version 5.6 
+
+ * env.USEAUTH=true is required to use OAUTH
+
+ ## Sample ENV file
+
+THIS_HOST=localhost
+ATOOLBAG_VERSION=5.6
+AUTH0_CLIENT_ID=some_value
+AUTH0_DOMAIN=some_value
+AUTH0_CLIENT_SECRET=some_value
+AUTH0_CALLBACK_URL=http://localhost:8000/callback
+JUPYTER_PORT=8888
+STATIC_PORT=8000
+PORT=8000
+USEAUTH=false
+
 
 
 
