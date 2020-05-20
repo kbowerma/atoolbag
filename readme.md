@@ -8,19 +8,18 @@ to goto Jupyter Notebook ```http://localhost:8000/notebook``` (password protecte
 
 
 
-
-
 ## Quick start: Building the image amd starting the container
 
 1. Clone the Repo: ```https://github.com/kbowerma/atoolbag.git```
 1. Create the .env file from the sample in this file
 1. Build the image: ``` sh build.sh ```
 1. Update the docker-compose.yml and rename the ```container_name```  to your project name
-2. Run the container:  ```docker run -it -p:8888:8888 --name mytoolbag  atoolbag ```
-3. Open:  ```localhost:8888``` on your browser and use the password that starts with an 'a'. If you omit the config file copy then you need to use the token. 
-click on ouptut link with Token at startup or if you loose the link run this: ```docker exec mytoolbag more /root/.local/share/jupyter/runtime/nbserver-1-open.html```
+1. Run the container ```docker-compose up```
+2. Alternately you can run the container:  ```docker run -it -p:8888:8888 --env-file .env --name mytoolbag  atoolbag ```
+3. Open:  ```localhost:8000``` on your browser and you should see the sample static site.
+4. Open ```localhost:8000/notebook``` to launch Jupyter and use the password that starts with an 'a'.
 4. If you don't have the password you can create your own by putting the hashed password in the included config file.   See [prepare hashed password](https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#preparing-a-hashed-password) in the docs for details on how to do this.
-4. Shell: ```docker exec -it mytoolbag /bin/bash``` or you can log into a terminal from Jupyter
+4. shell into the container: ```docker exec -it mytoolbag /bin/bash``` or you can log into a terminal from Jupyter
 
 ## Running the image locally. 
 
@@ -43,6 +42,10 @@ This is the quickest option to run the tools without being able to customize the
 * [NodeJS](https://nodejs.org/en/)
   * npm
   * [static-server](https://github.com/nbluis/static-server#readme)
+  * [express](https://expressjs.com/)
+  * [Express http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+  * [passport](http://www.passportjs.org/)
+  * [passport-auth0](https://github.com/auth0/passport-auth0)
 * [PostreSql](https://www.postgresql.org/)
 * Terminal via Jupyter or via docker exec
 * [Data Version Control](https://dvc.org/)
@@ -50,45 +53,26 @@ This is the quickest option to run the tools without being able to customize the
 ## Repos ( in /opt/repos)
  * [clusterForce](https://github.com/kbowerma/clusterForce)  
  * [sfdc-ci-toolkit](https://github.com/scolladon/sfdc-ci-toolkit)
+ * [Static Site Content: adocs](https://github.com/kbowerma/adocs) 
 
 
-## Docker build notes
+# Docker Container services
 
+This image is Monolithic and contains at least two services.  The are run from inside the container via the docker-entrypoint.sh.   This script also gets the latest repos if needed.  This file can be edited to run new startup tasks.
 
-#### Build
+# Env file
 
-     docker build -t atoolbag:3.4 .
+The env file ```.env`` is used both at build time and run time and is required.  Create this file by copying the [Sample ENV file] section to a file in root dir.
 
-#### Run Jupyter Notebook
+## ssh keys
 
-**Start Jupyter Notebook**
+The build script reads the users ssh keys in as arguments and writes them to the container.   The reason for this is so that the container itself can do git pulls and pushes as the user.  This is the only reason for the build.sh file.   Otherwise we could just use the compose file to call the docker file.
 
-**The new way** if you have a good startup **CMD** in your docker file that includes the jupyter switches for the notebook dir and ip .. Something like this: *CMD jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=$PORT --config='/opt/config/jupyter_notebook_config.py' --no-browser --allow-root*` and you have the ENV port set to 8888 (```ENV PORT 8888```) then you can run the container with -it (interactive shell, and tty ). You also need to map the local port to remote port (remote must be 8888),  pass it and name (mytoolbag) and specify the image (in this cases it is attobag:3.0)
+## Content
 
-     docker run -it -p:8888:8888 --name mytoolbag  atoolbag:3.0
+the docker file pulls the repo [adocs](https://github.com/kbowerma/adocs.git) to the /opt/notebook/www directory ```RUN git clone https://github.com/kbowerma/adocs.git /opt/notebooks/www```
+and docker-entrypoint.sh script does a git pull ```cd /opt/notebooks/www; ls; git pull``` every time the container starts.  This keeps the content fresh, however adocs is just a template.  You should commit this dir to a new repo for you project and update the dockerfile and docker-entrypoint accordingly.
 
-**The old way** if your startup **CMD** in the dockerfile just runs bash,  then you need to pass in the jupyter startup parms.  This is useful if you want to customize how Jupyter is started.
-
-     docker run -it -p:8888:8888  --name mytoolbag3  atoolbag:3.0 /bin/bash -c "/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root --config='/opt/config/jupyter_notebook_config.py'"
-
-
-
-The above command will return a url with that you can access with you local machine if you have removed the hashed password from the config file and need to use a token.
-
-```
-    To access the notebook, open this file in a browser:
-        file:///root/.local/share/jupyter/runtime/nbserver-1-open.html
-    Or copy and paste one of these URLs:
-        http://2108ec7c0003:8888/?token=2e98dcb8705428c5d0371d7dcd1b6764b60b6d507794aa19
-     or http://127.0.0.1:8888/?token=2e98dcb8705428c5d0371d7dcd1b6764b60b6d507794aa19
-```
-
-
-
-**Stop Container running Jupyter and restart it**
-
-```docker stop mytoolbag``` or *containerId* (use ```docker ps``` to show the containerId)
-Once you stop the container you wont see it with ```docker ps``` and you will have to use the all switch ```docker ps -a``` once you can see your containter you can start is again with ```docker start mytoolbag```
 
 #### Connect to shell 
 
@@ -106,7 +90,7 @@ or if you just need a new container you can run ```docker run -it atoolbag  /bin
 4. and Deploy, release the container ```heroku container:release web
 5. tail the logs so you can learn the token ```heroku logs --tail --app obscure-ravine-22779``
 
-## Running multiple service
+## Running multiple service without the docker-entrypoint.sh shell (Advanced)
 Jupyter notebook runs on port 8888 and is mapped to the same port on the local host.  [Mkdocs](https://www.mkdocs.org/) - a static site generator templated from markdown, is also installed and can be configured to run on any port including 8080.  Here is the command to expose both Juypter notebook (and start it) and a extra port for mkdocs:  
 
 ```docker run -it -p:8888:8888 -p:8080:8080 --name mytoolbag  atoolbag:1.6 /bin/bash -c "/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root --config='/opt/config/jupyter_notebook_config.py'"```  
@@ -171,7 +155,7 @@ docker push kbowerma/atoolbag
  * env.USEAUTH=true is required to use OAUTH
 
  ## Sample ENV file
-
+```
 THIS_HOST=localhost
 ATOOLBAG_VERSION=5.6
 AUTH0_CLIENT_ID=some_value
@@ -182,6 +166,7 @@ JUPYTER_PORT=8888
 STATIC_PORT=8000
 PORT=8000
 USEAUTH=false
+```
 
 
 
