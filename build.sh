@@ -20,7 +20,7 @@ echo "\n\n Building the ${ATOOLBAG_VERSION} image"
 
 
 # Un comment the line below to uplaod your ssh keys to the container
-docker build  -t "atoolbag:${ATOOLBAG_VERSION}"  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"  . 
+docker build  -t "atoolbag:${ATOOLBAG_VERSION}"  --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" -f dev.Dockerfile . 
 
 # Un Comment the line below and comment the line above if you dont want to push your ssh keys to the repo and you wont be able to automaticly push and pull
 # docker build  -t atoolbag:5.1  . 

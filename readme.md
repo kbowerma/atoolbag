@@ -172,6 +172,10 @@ PORT=8000
 USEAUTH=false
 ```
 
+## TODO
+
+* [] switching Node version, switching python versions
+
 
 
 
