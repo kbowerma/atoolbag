@@ -9,8 +9,7 @@
 
 #read values from env var
 
-source .env
-
+source "$PWD/.env" #windows wants the path
 echo "\n\n Building the ${ATOOLBAG_VERSION} image"
 
 #echo '\n checking for existance of express.env'

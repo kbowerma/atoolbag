@@ -24,10 +24,17 @@ RUN more /etc/apt/sources.list
 RUN apt-get update
 # Hack to get Java install to work
 RUN mkdir -p /usr/share/man/man1
-RUN apt-get install -y gnupg=2.2.12-1+deb10u1 nodejs=10.15.2~dfsg-2 
+RUN apt-get install -y gnupg=2.2.12-1+deb10u1
+# Node cant find 10.15 anymor
+RUN apt-get install -y curl dirmngr apt-transport-https lsb-release ca-certificates
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash
+RUN apt-get  install -y nodejs
+RUN curl -L https://npmjs.org/install.sh | sh
+
 #RUN apt-get install -y openjdk-11-jdk=11.0.5+10-1~deb10u1 postgresql=11+200+deb10u3 postgresql-contrib=11+200+deb10u3
-RUN apt-get install -y openjdk-11-jdk-headless=11.0.6+10-1~deb10u1 postgresql=11+200+deb10u3 postgresql-contrib=11+200+deb10u3
-RUN apt-get install -y jq=1.5+dfsg-2+b1 r-base=3.5.2-1 npm=5.8.0+ds6-4 vim=2:8.1.0875-5
+RUN apt-get install -y openjdk-11-jre-headless=11.0.6+10-1~deb10u1  openjdk-11-jdk-headless=11.0.6+10-1~deb10u1 
+RUN apt-get install -y postgresql=11+200+deb10u3 postgresql-contrib=11+200+deb10u3
+RUN apt-get install -y jq=1.5+dfsg-2+b1 r-base=3.5.2-1  vim=2:8.1.0875-5
 
 
 WORKDIR /opt/data
@@ -45,7 +52,7 @@ RUN pip install mglearn==0.1.7
 RUN pip install mkdocs==1.0.4
 RUN conda install -y basemap=1.2.0
 RUN conda install -y proj4=5.2.0
-RUN conda install -y psycopg2=2.8.4
+#RUN conda install -y psycopg2 # this is now hanging
 #RUN conda install -y -c conda-forge dvc=0.54.1  #I removed this it Hung the install
 
 # Install R
