@@ -4,3 +4,4 @@ node_modules
 .env
 express.env
 .DS_Store
+.code-workspace

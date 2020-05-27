@@ -11,7 +11,7 @@ to goto Jupyter Notebook ```http://localhost:8000/notebook``` (password protecte
 ## Quick start: Building the image amd starting the container
 
 1. Clone the Repo: ```https://github.com/kbowerma/atoolbag.git```
-1. Create the .env file from the sample in this file
+1. Create the .env file from the [Sample ENV file](#sample-env-file) section at the end of this readme. Paste the content of this section into a new file called ```.env```
 1. Build the image: ``` sh build.sh ```
 1. Update the docker-compose.yml and rename the ```container_name```  to your project name
 1. Run the container ```docker-compose up```
@@ -60,9 +60,9 @@ This is the quickest option to run the tools without being able to customize the
 
 This image is Monolithic and contains at least two services.  The are run from inside the container via the docker-entrypoint.sh.   This script also gets the latest repos if needed.  This file can be edited to run new startup tasks.
 
-# Env file
+## Env file
 
-The env file ```.env`` is used both at build time and run time and is required.  Create this file by copying the [Sample ENV file] section to a file in root dir.
+The env file ```.env``` is used both at build time and run time and is required.  Create this file by copying the [Sample ENV file](#sample-env-file) section to a file in root dir.
 
 ## ssh keys
 
@@ -81,7 +81,16 @@ or if you just need a new container you can run ```docker run -it atoolbag  /bin
 
 ### Auth for static site
 
-To enable OAuth2 on the static site create a env var called ```USEAUTH``` and set the value to true.  
+To enable OAuth2 on the static site create a env var called ```USEAUTH``` and set the value to true.  By simply setting the values in the .env file and creating a Auth0 free account on Heroku you can auth the static server.
+
+### Switching Python and R version
+For python in Jupyter you can just sinple select the kernel/Python version when you create a new notebook. To switch the command line version of Python you nned to switch Conda's virtual environment.
+
+* ```conda env list``` shows environments 
+* ```conda activate py36``` switches to Python 3.6.  Note you may need to install packages into these new environments with conda or pip.
+
+For switching versions of node the ```n``` node manager has been installed.   You can simply type ```n``` to enable the version selector.  Only 11.12.0 and 12.16.1 are installed by default.   To install and switch to a new version simply run:  ```n ls-remote``` to see the available version and then:  ```n 14.1.0``` to install that version.
+
 
 ## Deploy to Heroku
 
@@ -158,7 +167,11 @@ docker push kbowerma/atoolbag
 
  * env.USEAUTH=true is required to use OAUTH
 
- ## Sample ENV file
+  ## Version 5.7 
+
+ * Uses [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) to allow for faster and more robust rebuilds.
+
+## Sample ENV file
 ```
 THIS_HOST=localhost
 ATOOLBAG_VERSION=5.6
@@ -171,6 +184,9 @@ STATIC_PORT=8000
 PORT=8000
 USEAUTH=false
 ```
+
+## TODO
+
 
 
 
