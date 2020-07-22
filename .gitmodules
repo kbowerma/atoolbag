@@ -1,0 +1,3 @@
+[submodule "adocs"]
+	path = adocs
+	url = git@github.com:kbowerma/adocs.git

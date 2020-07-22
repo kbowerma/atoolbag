@@ -12,9 +12,9 @@ to goto Jupyter Notebook ```http://localhost:8000/notebook``` (password protecte
 
 1. Clone the Repo: ```https://github.com/kbowerma/atoolbag.git```
 1. Create the .env file from the [Sample ENV file](#sample-env-file) section at the end of this readme. Paste the content of this section into a new file called ```.env```
-1. Build the image: ``` sh build.sh ```
-1. Update the docker-compose.yml and rename the ```container_name```  to your project name
-1. Run the container ```docker-compose up```
+1. Build the image: ``` docker-compose build```
+1. _Optional_ Update the docker-compose.yml and rename the ```container_name```  to your project name
+1. Start the container ```docker-compose up```
 2. Alternately you can run the container:  ```docker run -it -p:8888:8888 --env-file .env --name mytoolbag  atoolbag ```
 3. Open:  ```localhost:8000``` on your browser and you should see the sample static site.
 4. Open ```localhost:8000/notebook``` to launch Jupyter and use the password that starts with an 'a'.
@@ -170,6 +170,9 @@ docker push kbowerma/atoolbag
   ## Version 5.7 
 
  * Uses [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) to allow for faster and more robust rebuilds.
+
+## Version 6.0
+ Removal of sub repos for projects, notebooks and data by using volumes instead.
 
 ## Sample ENV file
 ```

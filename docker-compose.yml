@@ -4,13 +4,20 @@ version: '3.6'
 services:
 
   web:
-    container_name: mytoolbag5.8
-    image: atoolbag:5.8 
+    build: 
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: mytoolbag6
+    image: atoolbag:6.0
     env_file:
       - .env
     ports:
       - 8000:8000
 # port 8888 jupyter is mapped through reverse proxy: localhost:8000/notebook
+    volumes: 
+      - ./notebooks:/opt/notebooks
+      - ./adocs:/opt/adocs
+      - ./server:/opt/server
 
 
 

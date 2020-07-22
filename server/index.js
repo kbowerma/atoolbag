@@ -138,16 +138,16 @@
 console.log('useauth = ' + useauth );
 if ( useauth == 'true' ) {
   console.log('useauth True = ' + useauth );
-  app.use('/site', secured,  express.static(path.join(__dirname, '../www/site')))   //KTB  3/31/20
+  app.use('/site', secured,  express.static(path.join(__dirname, '../adocs/site')))   //KTB  3/31/20
   app.use('/notebook', secured, jupyterProxy);
-  app.use('/', secured,  express.static(path.join(__dirname, '../www/site')))
+  app.use('/', secured,  express.static(path.join(__dirname, '../adocs/site')))
   //app.use('/', secured,  express.static(path.join(__dirname, 'site')))   //KTB  3/31/20
   //app.use('/api', createProxyMiddleware({ target: 'http://www.example.org', changeOrigin: true }));
 } else {
   console.log('useauth False = ' + useauth );
-  app.use('/site',   express.static(path.join(__dirname, '../www/site')))   //KTB  3/31/20
+  app.use('/site',   express.static(path.join(__dirname, '../adocs/site')))   //KTB  3/31/20
   app.use('/notebook', jupyterProxy);
-  app.use('/',  express.static(path.join(__dirname, '../www/site')))
+  app.use('/',  express.static(path.join(__dirname, '../adocs/site')))
 }
 
 // Server Activation

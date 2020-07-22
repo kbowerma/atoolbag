@@ -68,25 +68,27 @@ FROM mypackages AS mynode
 
 FROM mynode AS mydata
  RUN mkdir /opt/notebooks
- RUN mkdir /opt/data
- RUN mkdir /opt/notebooks/data
+ #RUN mkdir /opt/data
+ #RUN mkdir /opt/notebooks/data
  RUN mkdir /opt/repos
  WORKDIR /opt/repos
  # Get some Repos
  RUN git clone https://github.com/scolladon/sfdc-ci-toolkit.git
- RUN git clone https://github.com/kbowerma/clusterForce.git
+############### [ ] RUN git clone https://github.com/kbowerma/clusterForce.git
  # adocs is the static site template
- RUN git clone https://github.com/kbowerma/adocs.git /opt/notebooks/www
- RUN cp /opt/repos/clusterForce/notebooks/cityAssinger.ipynb  /opt/notebooks/
- RUN cp /opt/repos/clusterForce/notebooks/smartCityAssignmentsV2-plusCluster.ipynb /opt/notebooks/
- RUN cp /opt/repos/clusterForce/notebooks/Data/* /opt/notebooks/data
+################ [X] RUN git clone https://github.com/kbowerma/adocs.git /opt/notebooks/www
+################ [X] RUN cp /opt/repos/clusterForce/notebooks/cityAssinger.ipynb  /opt/notebooks/
+################ [X] RUN cp /opt/repos/clusterForce/notebooks/smartCityAssignmentsV2-plusCluster.ipynb /opt/notebooks/
+################ [ ] RUN cp /opt/repos/clusterForce/notebooks/Data/* /opt/notebooks/data
+ 
+ 
  #now install the Express/passport kit from the package.json in adocs 
- RUN mkdir /opt/notebooks/server
- COPY server /opt/notebooks/server
- WORKDIR /opt/notebooks/server
- RUN npm install 
+#  RUN mkdir /opt/notebooks/server
+#  COPY server /opt/notebooks/server
+#  WORKDIR /opt/notebooks/server
+#  RUN npm install 
 
- RUN dpkg -l > /opt/notebooks/data/packages.txt
+ RUN dpkg -l > /opt/notebooks/packages.txt
  COPY docker-entrypoint.sh  /opt
 
  ENTRYPOINT ["sh"]
