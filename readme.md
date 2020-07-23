@@ -11,23 +11,18 @@ to goto Jupyter Notebook ```http://localhost:8000/notebook``` (password protecte
 ## Quick start: Building the image amd starting the container
 
 1. Clone the Repo: ```https://github.com/kbowerma/atoolbag.git```
+1. This repo has a submodules adocs that is used for the static site.  So you need to pull that once you clone the repo by running ```git submodule update --init --recursive```.   You should check that the
+adoc directory has files in it once you are done.
 1. Create the .env file from the [Sample ENV file](#sample-env-file) section at the end of this readme. Paste the content of this section into a new file called ```.env```
 1. Build the image: ``` docker-compose build```
-1. _Optional_ Update the docker-compose.yml and rename the ```container_name```  to your project name
+1. _Optional_ Update the docker-compose.yml and rename the ```container_name```  to your project name, (the default is mytoolbag6)  you may also change the image name that the ```docker-compose build``` will generate.
 1. Start the container ```docker-compose up```
 2. Alternately you can run the container:  ```docker run -it -p:8888:8888 --env-file .env --name mytoolbag  atoolbag ```
 3. Open:  ```localhost:8000``` on your browser and you should see the sample static site.
 4. Open ```localhost:8000/notebook``` to launch Jupyter and use the password that starts with an 'a'.
 4. If you don't have the password you can create your own by putting the hashed password in the included config file.   See [prepare hashed password](https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#preparing-a-hashed-password) in the docs for details on how to do this.
-4. shell into the container: ```docker exec -it mytoolbag /bin/bash``` or you can log into a terminal from Jupyter
+4. shell into the container: ```docker exec -it mytoolbag6 /bin/bash``` or you can log into a terminal from Jupyter
 
-## Running the image locally. 
-
-This is the quickest option to run the tools without being able to customize the build. 
-
-1. grab the image from Docker Hub ```docker pull kbowerma/atoolbag:latest```
-2. start the container ```docker run -it -p:8888:8888 --name mytoolbag kbowerma/atoolbag:latest```
-3. Open a browser ```http://localhosts:8888``` and put in the magic password that Kyle gave you.
 
 ## Features
 
@@ -64,20 +59,20 @@ This image is Monolithic and contains at least two services.  The are run from i
 
 The env file ```.env``` is used both at build time and run time and is required.  Create this file by copying the [Sample ENV file](#sample-env-file) section to a file in root dir.
 
-## ssh keys
+## Volumes
 
-The build script reads the users ssh keys in as arguments and writes them to the container.   The reason for this is so that the container itself can do git pulls and pushes as the user.  This is the only reason for the build.sh file.   Otherwise we could just use the compose file to call the docker file.
+Prior to version 6, the images used git to pull project documentation into the container.  The required the user to also push to get from inside the container.   Now with version 6, volumes are used so users can git PULL and PUSH from their localhost not from inside the running container.
 
 ## Content
 
-the docker file pulls the repo [adocs](https://github.com/kbowerma/adocs.git) to the /opt/notebook/www directory ```RUN git clone https://github.com/kbowerma/adocs.git /opt/notebooks/www```
-and docker-entrypoint.sh script does a git pull ```cd /opt/notebooks/www; ls; git pull``` every time the container starts.  This keeps the content fresh, however adocs is just a template.  You should commit this dir to a new repo for you project and update the dockerfile and docker-entrypoint accordingly.
+The project atoolbag, uses a git submodule called adocs that sets up the mkdocs static site.   The users must pull this submodule before they start the container.
+
 
 
 #### Connect to shell 
 
-```docker exec -it mytoolbag /bin/bash``` will give you root access to the running container. 
-or if you just need a new container you can run ```docker run -it atoolbag  /bin/bash```
+```docker exec -it mytoolbag6 bash``` will give you root access to the running container. 
+or if you just need a new container just for shell tools you can run ```docker run -it atoolbag:6.0  bash```
 
 ### Auth for static site
 
