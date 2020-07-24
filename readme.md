@@ -10,8 +10,8 @@ to goto Jupyter Notebook ```http://localhost:8000/notebook``` (password protecte
 
 ## Quick start: Building the image amd starting the container
 
-1. Clone the Repo: ```https://github.com/kbowerma/atoolbag.git```
-1. This repo has a submodules adocs that is used for the static site.  So you need to pull that once you clone the repo by running ```git submodule update --init --recursive```.   You should check that the
+1. Clone the Repo: ```git clone --recursive https://github.com/kbowerma/atoolbag.git```  be sure you add the ```--recursive``` switch because adocs is a git submodule.
+1. The adocs submodules is used for the static site.  So you forget to pull that from the clone you can run ```git submodule update --init --recursive```.   You should check that the
 adoc directory has files in it once you are done.
 1. Create the .env file from the [Sample ENV file](#sample-env-file) section at the end of this readme. Paste the content of this section into a new file called ```.env```
 1. Build the image: ``` docker-compose build```
