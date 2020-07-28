@@ -88,6 +88,8 @@ FROM mynode AS mydata
 #  WORKDIR /opt/notebooks/server
 #  RUN npm install 
 
+WORKDIR /opt/notebooks
+
  RUN dpkg -l > /opt/notebooks/packages.txt
  COPY docker-entrypoint.sh  /opt
 

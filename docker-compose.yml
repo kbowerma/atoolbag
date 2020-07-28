@@ -13,6 +13,7 @@ services:
       - .env
     ports:
       - 8000:8000
+      - 8888:8888
 # port 8888 jupyter is mapped through reverse proxy: localhost:8000/notebook
     volumes: 
       - ./notebooks:/opt/notebooks
